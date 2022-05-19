@@ -100,6 +100,7 @@ def _insert_update_dw(ti):
     cur.execute('SELECT url FROM fato_smartphone')
 
     urls = cur.fetchall()
+    urls = [u[0] for u in urls]
 
     for smartphone in smartphones:
         if smartphone['url'] not in urls:
@@ -107,7 +108,7 @@ def _insert_update_dw(ti):
             url = smartphone['url']
             modelo = smartphone['modelo']
             preco = smartphone['preco']
-
+            urls.append(url)
             cur.execute(f"INSERT INTO fato_smartphone (marca_fk, url, preco, modelo) VALUES ({marca_id}, '{url}', {preco}, '{modelo}')")
 
     con.commit()
